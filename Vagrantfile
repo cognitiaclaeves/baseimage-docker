@@ -51,4 +51,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if Dir.glob("#{File.dirname(__FILE__)}/.vagrant/machines/default/*/id").empty?
     config.vm.provision :shell, :inline => $script
   end
+
+  config.vm.synced_folder "data", "/home/vagrant/data"
+  config.vm.network :forwarded_port, guest: 4000, host: 4000
+  config.vm.provision "shell", path: "exec-jekyll.sh"
 end
